@@ -25,7 +25,9 @@
                 Margin="10"
                 Grid.Row="0"
                 Grid.Column="0"
-                Value="{Binding ElementName=value_slider, Path=Value}"
+                Min="44"
+                Max="260"
+                Value="133"
                 DigitStyle="Percentage_1_DecimalPlaces" 
                 BackArcBrush="#444444"
                 FontSize="30"
@@ -47,8 +49,9 @@
                 Margin="10"
                 Grid.Row="0"
                 Grid.Column="2"
+                Max="130"
                 Value="{Binding ElementName=value_slider, Path=Value}"
-                DigitStyle="ActuelValue_1_DecimalPlaces" 
+                DigitStyle="Percentage_1_DecimalPlaces" 
                 BackArcBrush="#444444"
                 ValueArcBrush="Red"
                 NumericBrush="Red"
@@ -99,6 +102,7 @@
                 Glow="False" />
 
         <controls:RadialProgressBar 
+                Margin="10"
                 Grid.Row="2"  
                 Grid.Column="1"
                 Value="{Binding ElementName=value_slider, Path=Value}"

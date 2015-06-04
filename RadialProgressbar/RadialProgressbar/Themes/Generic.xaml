@@ -4,9 +4,7 @@
     xmlns:sysCtrl="clr-namespace:System.Windows.Converters;assembly=WindowsBase"
     xmlns:converter="clr-namespace:RadialProgressbar.Converter"
     xmlns:local="clr-namespace:RadialProgressbar">
-
     <converter:BoolToVisibilityConverter x:Key="boolToVisConverter" />
-
     <Style TargetType="{x:Type local:RadialProgressBar}">
         <Setter Property="FontSize" Value="46" />
         <Setter Property="Template">
@@ -14,22 +12,27 @@
                 <ControlTemplate TargetType="{x:Type local:RadialProgressBar}">
                     <Grid  x:Name="_RootGrid">
                         
+                        <!--BACKGROUND BORDER-->
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                        
+                        
                         <!-- BACKGROUND ARC -->
                         <Path Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackArcBrush}" StrokeThickness="10">
                             <Path.Data>
                                 <PathGeometry>
-                                    <PathFigure StartPoint="{Binding ElementName=ProgressPathFigure, Path=StartPoint, Mode=OneWay}"  >
+                                    <PathFigure StartPoint="{Binding ElementName=ValuePathFigure, Path=StartPoint, Mode=OneWay}"  >
                                         <ArcSegment x:Name="BackgroundArc"
                                                     IsLargeArc="True"             
                                                     SweepDirection="Clockwise"
-                                                    Size="{Binding ElementName=ProgressArcSegment, Path=Size, Mode=OneWay}">
+                                                    Size="{Binding ElementName=ValueArc, Path=Size, Mode=OneWay}">
                                         </ArcSegment>
                                     </PathFigure>
                                 </PathGeometry>
                             </Path.Data>
                         </Path>
-                        
-                        
+                                             
                         <!-- BLUR ARC -->
                         <Path Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ValueArcBrush, Mode=OneWay}"
                               StrokeThickness="10"
@@ -51,8 +54,7 @@
                                 </PathGeometry>
                             </Path.Data>
                         </Path>
-                        
-                        
+                                         
                         <!-- VALUE ARC -->
                         <Path Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ValueArcBrush}"
                               StrokeThickness="10">
@@ -73,13 +75,9 @@
                                    Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NumericBrush, Mode=OneWay}"
                                    FontFamily="Lucida Sans Typewriter Regular"
                                    FontSize="{TemplateBinding FontSize}"/>
-
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-
-
     </Style>
 </ResourceDictionary>

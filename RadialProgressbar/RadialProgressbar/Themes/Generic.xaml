@@ -50,11 +50,10 @@
                                                     Size="{Binding ElementName=ValueArc, Path=Size, Mode=OneWay}">
                                         </ArcSegment>
                                     </PathFigure>
-
                                 </PathGeometry>
                             </Path.Data>
                         </Path>
-                                         
+
                         <!-- VALUE ARC -->
                         <Path Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ValueArcBrush}"
                               StrokeThickness="10">

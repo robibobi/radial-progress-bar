@@ -42,12 +42,12 @@
                             </Path.Effect>
                             <Path.Data>
                                 <PathGeometry>
-                                    <PathFigure StartPoint="{Binding ElementName=ProgressPathFigure, Path=StartPoint, Mode=OneWay}">
+                                    <PathFigure StartPoint="{Binding ElementName=ValuePathFigure, Path=StartPoint, Mode=OneWay}">
                                         <ArcSegment
                                                     SweepDirection="Clockwise"
-                                                    IsLargeArc="{Binding ElementName=ProgressArcSegment, Path=IsLargeArc, Mode=OneWay}"
-                                                    Point="{Binding ElementName=ProgressArcSegment, Path=Point, Mode=OneWay}"
-                                                    Size="{Binding ElementName=ProgressArcSegment, Path=Size, Mode=OneWay}">
+                                                    IsLargeArc="{Binding ElementName=ValueArc, Path=IsLargeArc, Mode=OneWay}"
+                                                    Point="{Binding ElementName=ValueArc, Path=Point, Mode=OneWay}"
+                                                    Size="{Binding ElementName=ValueArc, Path=Size, Mode=OneWay}">
                                         </ArcSegment>
                                     </PathFigure>
 
@@ -75,6 +75,7 @@
                                    Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NumericBrush, Mode=OneWay}"
                                    FontFamily="Lucida Sans Typewriter Regular"
                                    FontSize="{TemplateBinding FontSize}"/>
+                        
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

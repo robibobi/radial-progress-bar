@@ -8,6 +8,7 @@
         Width="1020">
 
 
+
     <Grid  Margin="200, 0, 200, 0" >
         <Grid.RowDefinitions>
             <RowDefinition Height="200" />
@@ -39,7 +40,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Value="{Binding ElementName=value_slider, Path=Value}"
-                DigitStyle="PercentageNoDecimalPlace" 
+                DigitStyle="Percentage_0_DecimalPlaces" 
                 BackArcBrush="#444444"
                 FontSize="60"
                 ValueArcBrush="OrangeRed"
@@ -61,7 +62,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Value="{Binding ElementName=value_slider, Path=Value}"
-                DigitStyle="ActuelValue_2_DecimalPlaces" 
+                DigitStyle="AbsoluteValue_2_DecimalPlaces" 
                 BackArcBrush="#444444"
                 FontSize="40"
                 ValueArcBrush="LightGreen"
@@ -72,7 +73,7 @@
                 Grid.Row="1"
                 Grid.Column="2"
                 Value="{Binding ElementName=value_slider, Path=Value}"
-                DigitStyle="PercentageNoDecimalPlace" 
+                DigitStyle="Percentage_0_DecimalPlaces" 
                 BackArcBrush="Purple"
                 ValueArcBrush="BlueViolet"
                 NumericBrush="BlueViolet"
@@ -83,7 +84,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Value="{Binding ElementName=value_slider, Path=Value}"
-                DigitStyle="PercentageNoDecimalPlace" 
+                DigitStyle="Percentage_0_DecimalPlaces" 
                 BackArcBrush="#444444"
                 ValueArcBrush="SkyBlue"
                 NumericBrush="SkyBlue"
@@ -95,7 +96,7 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Value="{Binding ElementName=value_slider, Path=Value}"
-                DigitStyle="ActuelValue_1_DecimalPlaces" 
+                DigitStyle="AbsoluteValue_1_DecimalPlaces" 
                 BackArcBrush="#444444"
                 ValueArcBrush="Purple"
                 NumericBrush="Purple"
@@ -106,7 +107,7 @@
                 Grid.Row="2"  
                 Grid.Column="1"
                 Value="{Binding ElementName=value_slider, Path=Value}"
-                DigitStyle="ActuelValue_1_DecimalPlaces" 
+                DigitStyle="AbsoluteValue_1_DecimalPlaces" 
                 BackArcBrush="DarkBlue"
                 ValueArcBrush="Blue"
                 NumericBrush="Blue"

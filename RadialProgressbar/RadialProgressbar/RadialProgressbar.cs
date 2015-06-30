@@ -19,7 +19,6 @@ namespace RadialProgressbar
             typeof(RadialProgressBar),
             new PropertyMetadata(0d));
 
-
         public double Max
         {
             get { return (double)GetValue(MaxProperty); }
@@ -28,8 +27,7 @@ namespace RadialProgressbar
         public static readonly DependencyProperty MaxProperty =
             DependencyProperty.Register("Max", typeof(double),
             typeof(RadialProgressBar),
-            new PropertyMetadata(100d));
-
+            new PropertyMetadata(100d, OnMinOrMaxOrValueChanged));
 
         public double Value
         {
@@ -40,22 +38,24 @@ namespace RadialProgressbar
             DependencyProperty.Register("Value",
             typeof(double),
             typeof(RadialProgressBar),
-            new PropertyMetadata((d, e) =>
-            {
-                double value = (double)e.NewValue;
-                RadialProgressBar pg = d as RadialProgressBar;
-                if (pg != null && pg.IsLoaded)
-                    pg.OnValueChangedLocal(value);
-            }));
+            new PropertyMetadata(64.2d, OnMinOrMaxOrValueChanged));
+
+        private static void OnMinOrMaxOrValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RadialProgressBar pg = d as RadialProgressBar;
+            if (pg != null && pg.IsLoaded)
+                pg.OnValueChanged((double)e.NewValue);
+        }
+        
 
         public enum NumericStyle
         {
-            PercentageNoDecimalPlace,
+            Percentage_0_DecimalPlaces,
             Percentage_1_DecimalPlaces,
             Percentage_2_DecimalPlaces,
-            ActualValueNoDecimalPlace,
-            ActuelValue_1_DecimalPlaces,
-            ActuelValue_2_DecimalPlaces,
+            AbsoluteValue_0_DecimalPlaces,
+            AbsoluteValue_1_DecimalPlaces,
+            AbsoluteValue_2_DecimalPlaces,
         }
         public NumericStyle DigitStyle
         {
@@ -66,19 +66,7 @@ namespace RadialProgressbar
             DependencyProperty.Register("DigitStyle",
             typeof(NumericStyle),
             typeof(RadialProgressBar),
-            new PropertyMetadata(NumericStyle.PercentageNoDecimalPlace));
-
-
-        public Brush BackArcBrush
-        {
-            get { return (Brush)GetValue(BackArcBrushProperty); }
-            set { SetValue(BackArcBrushProperty, value); }
-        }
-        public static readonly DependencyProperty BackArcBrushProperty =
-            DependencyProperty.Register("BackArcBrush",
-            typeof(Brush),
-            typeof(RadialProgressBar),
-            new PropertyMetadata(new SolidColorBrush(Color.FromRgb(77, 77, 77))));
+            new PropertyMetadata(NumericStyle.Percentage_0_DecimalPlaces));
 
 
         public Brush ValueArcBrush
@@ -92,6 +80,16 @@ namespace RadialProgressbar
             typeof(RadialProgressBar),
             new PropertyMetadata(Brushes.OrangeRed));
 
+        public Brush BackArcBrush
+        {
+            get { return (Brush)GetValue(BackArcBrushProperty); }
+            set { SetValue(BackArcBrushProperty, value); }
+        }
+        public static readonly DependencyProperty BackArcBrushProperty =
+            DependencyProperty.Register("BackArcBrush",
+            typeof(Brush),
+            typeof(RadialProgressBar),
+            new PropertyMetadata(new SolidColorBrush(Color.FromRgb(77, 77, 77))));
 
         public Brush NumericBrush
         {
@@ -122,7 +120,7 @@ namespace RadialProgressbar
         private const double FULL_ANGLE = (2 * Math.PI) - (2 * ANGLE_OFFSET);
 
         private double mRadius;
-        private Point mMiddle;
+        private Point mMiddle = new Point();
 
         private PathFigure mValuePathFigure;
         private ArcSegment mValueArc;
@@ -149,7 +147,7 @@ namespace RadialProgressbar
             CalculateNewDemensions(rootGrid.ActualWidth, rootGrid.ActualHeight);
 
             // Enpunkt zurücksetzen
-            OnValueChangedLocal(Value);
+            OnValueChanged(Value);
 
             // Radius und Startpunkte neu berechnen wenn
             // sich die Gräße des Controls ändert
@@ -182,14 +180,14 @@ namespace RadialProgressbar
             mBackgroundArc.Point = CalculateEndpoint(100.0);
 
             // 5) Value-Arc Punkt neu berechnen
-            OnValueChangedLocal(Value);
+            OnValueChanged(Value);
         }
 
 
-        public void OnValueChangedLocal(double newValue)
+        public void OnValueChanged(double newValue)
         {
             double percentage = 100 * (newValue - Min) / (Max - Min); 
-
+           
             UpdateTextBlock(newValue, percentage);
 
             mValueArc.Point = CalculateEndpoint(percentage);
@@ -217,13 +215,13 @@ namespace RadialProgressbar
         {
             switch (DigitStyle)
             {
-                case NumericStyle.ActualValueNoDecimalPlace:
+                case NumericStyle.AbsoluteValue_0_DecimalPlaces:
                     mValueText.Text = ((int)value).ToString();
                     break;
-                case NumericStyle.ActuelValue_1_DecimalPlaces:
+                case NumericStyle.AbsoluteValue_1_DecimalPlaces:
                     mValueText.Text = value.ToString("0.0");
                     break;
-                case NumericStyle.ActuelValue_2_DecimalPlaces:
+                case NumericStyle.AbsoluteValue_2_DecimalPlaces:
                     mValueText.Text = value.ToString("0.00");
                     break;
                 case NumericStyle.Percentage_1_DecimalPlaces:
@@ -232,11 +230,10 @@ namespace RadialProgressbar
                 case NumericStyle.Percentage_2_DecimalPlaces:
                     mValueText.Text = percentage.ToString("0.00") + "%";
                     break;
-                case NumericStyle.PercentageNoDecimalPlace:
+                case NumericStyle.Percentage_0_DecimalPlaces:
                 default:
                     mValueText.Text = (int)percentage + "%";
                     break;
-
             }
         }
     }
